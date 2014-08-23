@@ -36,12 +36,32 @@ function PANEL:FillData( parent )
 	local ItemTable = fn.Filter(fn.Compose{fn.Not, fn.Curry(fn.GetValue, 2)("noship")}, CustomShipments)
 	for i, item in pairs( ItemTable ) do
 
-		CurrentItem = vgui.Create( "tcb_panel_item", parent )
-		CurrentItem:SetPos( 0, StartYPos )
+		local ShowThisItem = true
+		if TCB_Settings.HideWrongJob == true then
 
-		CurrentItem:UpdateInfo( item, "shipments", "shipments" )
+			if istable(item.allowed) 	and not table.HasValue( item.allowed, LocalPlayer():Team() ) 	then ShowThisItem = false end
+			if item.customCheck 		and not item.customCheck( LocalPlayer() ) 						then ShowThisItem = false end
 
-		StartYPos = StartYPos + CurrentItem:GetTall() + 11
+		end
+
+		if ShowThisItem == true then
+
+			CurrentItem = vgui.Create( "tcb_panel_item", parent )
+			CurrentItem:SetPos( 0, StartYPos )
+
+			CurrentItem:UpdateInfo( item, "shipments", "shipments" )
+
+			StartYPos = StartYPos + CurrentItem:GetTall() + 11
+	
+		end
+
+	end
+
+	if TCB_Settings.HideWrongJob == true then
+		
+		HideElementsMsg = vgui.Create( "tcb_panel_hidden", parent )
+		HideElementsMsg:SetPos( 0, StartYPos )
+
 	end
 
 end

@@ -39,3 +39,27 @@ end
 
 -- Derma
 vgui.Register( "tcb_panel_scroll", PANEL, "DScrollPanel" )
+
+
+
+-- Variables
+local PANEL = {}
+
+-- Panel
+function PANEL:Init()
+
+	self:SetSize( 608, 30 )
+	self.Paint = function( pnl, w, h )
+
+		draw.RoundedBox( 0, 0, 0, w - 0, h - 0, Color( 0, 0, 0, 100 ) )
+		draw.RoundedBox( 0, 2, 2, w - 4, h - 4, Color( 60, 60, 60, 255 ) )
+
+		draw.DrawText( "Some items might be hidden because you have the wrong job or rank!", "Trebuchet18", w/2+1, 7+1, Color( 0, 0, 0, 255 ), 1 )
+		draw.DrawText( "Some items might be hidden because you have the wrong job or rank!", "Trebuchet18", w/2+0, 7+0, Color( 255, 255, 255, 255 ), 1 )
+
+	end
+
+end
+
+-- Derma
+vgui.Register( "tcb_panel_hidden", PANEL, "DPanel" )

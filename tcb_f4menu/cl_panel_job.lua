@@ -151,28 +151,45 @@ function PANEL:FillData( parent )
 	local StartYPos = 0
 
 	for i, job in ipairs(RPExtraTeams) do
+		
+		local ShowThisItem = true
+		if TCB_Settings.HideWrongJob == true then
 
-		CurrentJob = vgui.Create( "tcb_panel_jobs_item", parent )
-		CurrentJob:SetPos( 0, StartYPos )
+			if job.customCheck 		and not job.customCheck(LocalPlayer()) 				then ShowThisItem = false end
+			if job.NeedToChangeFrom and job.NeedToChangeFrom != LocalPlayer():Team() 	then ShowThisItem = false end
 
-		-- Update
-		local job_team 	= job['team'] 			or ""
-		local job_name 	= job['name']			or ""
-		local job_desc	= job['description']	or ""
-		local job_max	= job['max'] 			or 0
-		local job_vote	= job['vote']			or false
-		local job_cmd	= job['command']		or ""
+		end
+		
+		if ShowThisItem == true then
+			CurrentJob = vgui.Create( "tcb_panel_jobs_item", parent )
+			CurrentJob:SetPos( 0, StartYPos )
 
-		local job_ply	= team.NumPlayers( job['team'] ) or 0
-		local job_mdl	= ""
+			-- Update
+			local job_team 	= job['team'] 			or ""
+			local job_name 	= job['name']			or ""
+			local job_desc	= job['description']	or ""
+			local job_max	= job['max'] 			or 0
+			local job_vote	= job['vote']			or false
+			local job_cmd	= job['command']		or ""
 
-		if job_max == 0 then job_max = "#" end 		// ∞
+			local job_ply	= team.NumPlayers( job['team'] ) or 0
+			local job_mdl	= ""
 
-		if istable( job['model'] ) then job_mdl = job['model'][1] else job_mdl = job['model'] end
+			if job_max == 0 then job_max = "#" end 		// ∞
 
-		CurrentJob:UpdateInfo( job, job_team, job_name, job_mdl, job_max, job_ply, job_desc, job_vote, job_cmd )
+			if istable( job['model'] ) then job_mdl = job['model'][1] else job_mdl = job['model'] end
 
-		StartYPos = StartYPos + CurrentJob:GetTall() + 11
+			CurrentJob:UpdateInfo( job, job_team, job_name, job_mdl, job_max, job_ply, job_desc, job_vote, job_cmd )
+
+			StartYPos = StartYPos + CurrentJob:GetTall() + 11
+		end
+
+	end
+
+	if TCB_Settings.HideWrongJob == true then
+		
+		HideElementsMsg = vgui.Create( "tcb_panel_hidden", parent )
+		HideElementsMsg:SetPos( 0, StartYPos )
 
 	end
 
