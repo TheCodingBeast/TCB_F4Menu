@@ -58,7 +58,7 @@ function PANEL:FillData( parent )
 
 	if TCB_Settings.HideWrongJob == true then
 		
-		HideElementsMsg = vgui.Create( "tcb_panel_hidden", parent )
+		local HideElementsMsg = vgui.Create( "tcb_panel_hidden", parent )
 		HideElementsMsg:SetPos( 0, StartYPos )
 
 	end
