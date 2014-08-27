@@ -220,48 +220,52 @@ function PANEL:Frame()
 			CurButton.OnCursorEntered	= function() CurButton.Hover = true  end
 			CurButton.OnCursorExited 	= function() CurButton.Hover = false end
 
-			if button['func'] == "jobs" then 
-
-				button['func'] = #RPExtraTeams 
-
-			elseif button['func'] == "entities" then 
-
-				button['func'] = #DarkRPEntities 
-
-			elseif button['func'] == "weapons" then 
-
-				button['func'] = 0
-				for k,v in ipairs(CustomShipments) do
-					if v['seperate'] then
-						button['func'] = button['func'] + 1
-					end
-				end
-
-			elseif button['func'] == "shipments" then 
-
-				button['func'] = 0
-				for k,v in ipairs(CustomShipments) do
-					if !v['noship'] then
-						button['func'] = button['func'] + 1
-					end
-				end
-
-			elseif button['func'] == "ammo" then 
-
-				button['func'] = #GAMEMODE.AmmoTypes 
-
-			elseif button['func'] == "vehicles" then 
-
-				button['func'] = #CustomVehicles
-
+			if isnumber(button['func']) then
+			
+				button['func'] = button['func']
+			
 			else
+			
+				if button['func'] == "jobs" then 
 
-				if isnumber(button['func']) then
-					button['func'] = button['func']
-				else
+					button['func'] = #RPExtraTeams 
+
+				elseif button['func'] == "entities" then 
+
+					button['func'] = #DarkRPEntities 
+
+				elseif button['func'] == "weapons" then 
+
 					button['func'] = 0
-				end
+					for k,v in ipairs(CustomShipments) do
+						if v['seperate'] then
+							button['func'] = button['func'] + 1
+						end
+					end
 
+				elseif button['func'] == "shipments" then 
+
+					button['func'] = 0
+					for k,v in ipairs(CustomShipments) do
+						if !v['noship'] then
+							button['func'] = button['func'] + 1
+						end
+					end
+
+				elseif button['func'] == "ammo" then 
+
+					button['func'] = #GAMEMODE.AmmoTypes 
+
+				elseif button['func'] == "vehicles" then 
+
+					button['func'] = #CustomVehicles
+				
+				else
+				
+					button['func'] = 0
+				
+				end
+			
 			end
 
 			CurButton.DoClick = function() 
