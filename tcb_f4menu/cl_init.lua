@@ -19,6 +19,8 @@ function TCB:OpenF4Menu()
 		TCB_F4Frame:Show()
 
 		TCB_F4Frame.PanelReady = false
+		
+		TCB_F4Frame.ActivePanel:RefillData()
 
 	else
  
