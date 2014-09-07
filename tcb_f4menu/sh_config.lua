@@ -53,4 +53,4 @@ TCB_Settings.SidebarButtons = {
 }
 
 -- Version (Don't Change)
-TCB_Settings.Version 		= "1.4"
+TCB_Settings.Version 		= "1.5"
