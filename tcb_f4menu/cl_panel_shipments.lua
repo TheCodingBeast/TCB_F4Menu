@@ -39,7 +39,7 @@ function PANEL:FillData( parent )
 		local ShowThisItem = true
 		if TCB_Settings.HideWrongJob == true then
 
-			if istable(item.allowed) 	and not table.HasValue( item.allowed, LocalPlayer():Team() ) 	then ShowThisItem = false end
+			if istable(item.allowed) and table.Count(item.allowed) >= 1 		and not table.HasValue( item.allowed, LocalPlayer():Team() ) 	then ShowThisItem = false end
 			if item.customCheck 		and not item.customCheck( LocalPlayer() ) 						then ShowThisItem = false end
 
 		end

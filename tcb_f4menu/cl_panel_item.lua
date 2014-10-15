@@ -113,7 +113,7 @@ function PANEL:UpdateInfo( item, type, check )
 			self.buy.Status = true
 		end
 
-		if istable(item.allowed) and not table.HasValue(item.allowed, LocalPlayer():Team()) then
+		if istable(item.allowed) and table.Count(item.allowed) >= 1 and not table.HasValue(item.allowed, LocalPlayer():Team()) then
 			self.buy.Status = true 
 		end
 		
