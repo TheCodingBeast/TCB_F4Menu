@@ -12,7 +12,7 @@ local TCB_F4Frame
 
 -- Menu (Open/Create)
 function TCB:OpenF4Menu()
-	if TCB_F4Frame then
+	if TCB_F4Frame and ValidPanel( TCB_F4Frame ) then
 		
 		-- Open
 		TCB_F4Frame:SetVisible( true )
@@ -38,6 +38,10 @@ function TCB:OpenF4Menu()
 		if TCB_F4Frame.ActivePanel != nil then
 			TCB_F4Frame.ActivePanel:RefillData()
 		end
+		
+		-- Show
+		TCB_F4Frame:SetVisible( true )
+		TCB_F4Frame:Show()
 
 	end
 end
@@ -83,7 +87,7 @@ hook.Add( TCB_Settings.ActivationKey1, "TCB.HandleF4Menu", TCB.HandleF4Menu)
 function TCB:CheckVersion()
 	if TCB_Settings.CheckVersion == true and TCB_F4Frame then
 
-		http.Fetch( "http://thecodingbeast.com/version_control/tcb_f4menu.php",
+		http.Fetch( "https://raw.githubusercontent.com/TheCodingBeast/TCB_Version/master/tcb_f4menu.txt",
 
 			function( body, len, headers, code ) 
 				//Msg( body ) 
